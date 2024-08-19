@@ -1,0 +1,42 @@
+{
+  "name": "next.js",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^5.16.4",
+    "@mui/material": "^5.16.4",
+    "@mui/x-charts": "^7.11.0",
+    "aws-iot-device-sdk-v2": "^1.20.0",
+    "aws-sdk": "^2.1666.0",
+    "chart.js": "^4.4.3",
+    "fs": "^0.0.1-security",
+    "mqtt": "^5.9.1",
+    "next": "latest",
+    "next-auth": "^4.24.7",
+    "react": "latest",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "latest",
+    "react-hot-toast": "^2.4.1",
+    "react-material-ui-carousel": "^3.4.2",
+    "sharp": "^0.33.4",
+    "swiper": "^11.1.9",
+    "tailwind-merge": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/next-auth": "^3.15.0",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.41",
+    "tailwindcss": "^3.4.7",
+    "typescript": "latest"
+  }
+}
