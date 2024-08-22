@@ -31,6 +31,7 @@ import {
 } from "chart.js";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import WaterAnimation from "./WaterAnimation";
 
 ChartJS.register(
   CategoryScale,
@@ -144,153 +145,90 @@ const TanksComponent: React.FC = () => {
   };
 
   return (
-    <Box>
-      <Typography variant="h4" sx={{ margin: "8px 0px" }}>
-        Tank Overview
-      </Typography>
-      <Grid container spacing={2}>
-        {/* Water Quality Sensor */}
-        <Grid
-          item
-          xs={12}
-          md={12}
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Card sx={{ width: "45%" }}>
-            <CardContent>
-              <Typography variant="h5">Water Quality Analysis</Typography>
-              <Typography variant="body1">pH: {waterQuality.pH}</Typography>
-              <Typography variant="body1">
-                Turbidity: {waterQuality.turbidity} NTU
-              </Typography>
-              <Typography variant="body1">
-                Temperature: {waterQuality.temperature} °C
-              </Typography>
-              <Typography variant="body1">
-                Dissolved Oxygen: {waterQuality.dissolvedOxygen} mg/L
-              </Typography>
-              <Typography variant="body1">
-                Status: {waterQuality.status}
-              </Typography>
-            </CardContent>
-          </Card>
+    <>
+      <Card ref={cardRef} sx={{ boxShadow: "5px 5px 5px gray" }}>
+        <CardContent>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h6" sx={{ mb: { xs: 2, md: 0 } }}>
+              {graphType === "inflow" ? "Inflow" : "Outflow"} Graph
+            </Typography>
 
-          <Card sx={{ width: "50%" }}>
-            <CardContent>
-              <Typography variant="h5">Water Level Analysis</Typography>
-              <Typography variant="body1">pH: {waterQuality.pH}</Typography>
-              <Typography variant="body1">
-                Turbidity: {waterQuality.turbidity} NTU
-              </Typography>
-              <Typography variant="body1">
-                Temperature: {waterQuality.temperature} °C
-              </Typography>
-              <Typography variant="body1">
-                Dissolved Oxygen: {waterQuality.dissolvedOxygen} mg/L
-              </Typography>
-              <Typography variant="body1">
-                Status: {waterQuality.status}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12}>
-          <Card ref={cardRef}>
-            <CardContent>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
+            <FormControl
+              sx={{
+                minWidth: 120,
+                mb: { xs: 2, md: 0 },
+              }}
+              variant="outlined"
+            >
+              <Select
+                value={timeRange}
+                onChange={(e: any) => handleTimeRangeChange(e)}
               >
-                <Typography variant="h5" sx={{ mb: { xs: 2, md: 0 } }}>
-                  {graphType === "inflow" ? "Inflow" : "Outflow"} Graph
-                </Typography>
+                <MenuItem value="daily">Daily</MenuItem>
+                <MenuItem value="weekly">Weekly</MenuItem>
+                <MenuItem value="monthly">Monthly</MenuItem>
+              </Select>
+            </FormControl>
 
-                <FormControl
+            <ToggleButtonGroup
+              sx={{ mb: { xs: 2, md: 0 } }}
+              value={graphType}
+              exclusive
+              onChange={handleGraphTypeChange}
+              aria-label="graph type"
+            >
+              <ToggleButton value="inflow" aria-label="inflow">
+                <TrendingUpIcon
                   sx={{
-                    minWidth: 150,
-                    mb: { xs: 2, md: 0 },
+                    marginRight: "5px",
+                    color: "blue",
                   }}
-                  variant="outlined"
-                >
-                  <Select
-                    value={timeRange}
-                    onChange={(e: any) => handleTimeRangeChange(e)}
-                  >
-                    <MenuItem value="daily">Daily</MenuItem>
-                    <MenuItem value="weekly">Weekly</MenuItem>
-                    <MenuItem value="monthly">Monthly</MenuItem>
-                  </Select>
-                </FormControl>
+                />{" "}
+                Inflow
+              </ToggleButton>
+              <ToggleButton value="outflow" aria-label="outflow">
+                <TrendingDownIcon sx={{ marginRight: "5px", color: "red" }} />{" "}
+                Outflow
+              </ToggleButton>
+            </ToggleButtonGroup>
 
-                <ToggleButtonGroup
-                  sx={{ mb: { xs: 2, md: 0 } }}
-                  value={graphType}
-                  exclusive
-                  onChange={handleGraphTypeChange}
-                  aria-label="graph type"
-                >
-                  <ToggleButton value="inflow" aria-label="inflow">
-                    <TrendingUpIcon
-                      sx={{
-                        marginRight: "5px",
-                        color: "blue",
-                      }}
-                    />{" "}
-                    Inflow
-                  </ToggleButton>
-                  <ToggleButton value="outflow" aria-label="outflow">
-                    <TrendingDownIcon
-                      sx={{ marginRight: "5px", color: "red" }}
-                    />{" "}
-                    Outflow
-                  </ToggleButton>
-                </ToggleButtonGroup>
+            <Box>
+              <IconButton
+                onClick={handleChartTypeToggle}
+                aria-label="toggle chart type"
+              >
+                {chartType === "line" ? <BarChartIcon /> : <ShowChartIcon />}
+              </IconButton>
+              <IconButton
+                onClick={handleFullScreenToggle}
+                aria-label="toggle fullscreen"
+              >
+                {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+              </IconButton>
+              <IconButton
+                onClick={handleDownloadChart}
+                aria-label="download chart"
+              >
+                <FileDownloadIcon />
+              </IconButton>
+            </Box>
+          </Box>
 
-                <Box>
-                  <IconButton
-                    onClick={handleChartTypeToggle}
-                    aria-label="toggle chart type"
-                  >
-                    {chartType === "line" ? (
-                      <BarChartIcon />
-                    ) : (
-                      <ShowChartIcon />
-                    )}
-                  </IconButton>
-                  <IconButton
-                    onClick={handleFullScreenToggle}
-                    aria-label="toggle fullscreen"
-                  >
-                    {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
-                  </IconButton>
-                  <IconButton
-                    onClick={handleDownloadChart}
-                    aria-label="download chart"
-                  >
-                    <FileDownloadIcon />
-                  </IconButton>
-                </Box>
-              </Box>
-
-              {chartType === "line" ? (
-                <Line data={chartData} />
-              ) : (
-                <Bar data={chartData} />
-              )}
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-    </Box>
+          {chartType === "line" ? (
+            <Line data={chartData} />
+          ) : (
+            <Bar data={chartData} />
+          )}
+        </CardContent>
+      </Card>
+    </>
   );
 };
 

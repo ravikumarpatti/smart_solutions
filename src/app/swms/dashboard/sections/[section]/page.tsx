@@ -2,13 +2,12 @@
 
 import { useParams } from "next/navigation";
 import NavigationMenu from "../../../../../components/swms/NavigationMenu";
-import TankComponent from "../../../../../components/swms/Tanks/TankComponent";
+import TankList from "../../../../../components/swms/Tanks/TanksList";
 import BorewellsComponent from "../../../../../components/swms/Borewells/BorewellsComponent";
 import MotorsComponent from "../../../../../components/swms/MotorsComponent/MotorsComponent";
 import ValvesComponent from "../../../../../components/swms/Valves/ValvesComponent";
 import UsageComponent from "../../../../../components/swms/usage/UsageComponent";
 import BluetoothComponent from "../../../../../components/swms/Bluetooth";
-import LiquidFillTankComponent from "../../../../../components/swms/LiquidFillTankComponent";
 
 const SectionPage = () => {
   const params = useParams(); // Get the parameters from the URL
@@ -18,7 +17,7 @@ const SectionPage = () => {
 
   switch (section) {
     case "tanks":
-      ComponentToRender = TankComponent;
+      ComponentToRender = TankList;
       break;
     case "borewells":
       ComponentToRender = BorewellsComponent;
