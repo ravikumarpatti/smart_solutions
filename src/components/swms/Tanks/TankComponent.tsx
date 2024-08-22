@@ -6,7 +6,6 @@ import {
   Card,
   CardContent,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
   ToggleButtonGroup,
@@ -32,7 +31,6 @@ import {
 } from "chart.js";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import LiquidFillTankComponent from "../../components/swms/LiquidFillTankComponent";
 
 ChartJS.register(
   CategoryScale,
