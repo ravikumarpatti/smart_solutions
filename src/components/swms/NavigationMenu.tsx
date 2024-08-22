@@ -23,7 +23,6 @@ const NavigationMenu = () => {
     "/swms/dashboard/sections/bluetooth",
   ];
 
-  // Set the active tab based on the current pathname
   useEffect(() => {
     const currentIndex = paths.indexOf(pathname);
     if (currentIndex !== -1) {
@@ -47,21 +46,94 @@ const NavigationMenu = () => {
       sx={{
         backgroundColor: "white",
         borderRadius: "8px",
-        ".Mui-selected": {
-          color: "#193929",
-          border: "none",
-        },
         ".MuiTabs-indicator": {
           backgroundColor: "#193929",
         },
+        position: "sticky",
+        top: "8px",
       }}
     >
-      <Tab icon={<WaterIcon />} label="Tanks" />
-      <Tab icon={<WellIcon />} label="Borewells" />
-      <Tab icon={<MotorIcon />} label="Motors" />
-      <Tab icon={<ValveIcon />} label="Valves" />
-      <Tab icon={<UsageIcon />} label="Usage" />
-      <Tab icon={<BluetoothConnectedIcon />} label="Bluetooth" />
+      <Tab
+        icon={
+          <WaterIcon sx={{ color: selectedTab === 0 ? "#193929" : "gray" }} />
+        }
+        label="Tanks"
+        sx={{
+          color: selectedTab === 0 ? "#193929" : "gray",
+          "&.Mui-selected": {
+            fontWeight: "bold",
+            color: "#193929",
+          },
+        }}
+      />
+      <Tab
+        icon={
+          <WellIcon sx={{ color: selectedTab === 1 ? "#193929" : "gray" }} />
+        }
+        label="Borewells"
+        sx={{
+          color: selectedTab === 0 ? "#193929" : "gray",
+
+          "&.Mui-selected": {
+            color: "#193929",
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Tab
+        icon={
+          <MotorIcon sx={{ color: selectedTab === 2 ? "#193929" : "gray" }} />
+        }
+        label="Motors"
+        sx={{
+          color: selectedTab === 0 ? "#193929" : "gray",
+          "&.Mui-selected": {
+            color: "#193929",
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Tab
+        icon={
+          <ValveIcon sx={{ color: selectedTab === 3 ? "#193929" : "gray" }} />
+        }
+        label="Valves"
+        sx={{
+          color: selectedTab === 0 ? "#193929" : "gray",
+          "&.Mui-selected": {
+            fontWeight: "bold",
+            color: "#193929",
+          },
+        }}
+      />
+      <Tab
+        icon={
+          <UsageIcon sx={{ color: selectedTab === 4 ? "#193929" : "gray" }} />
+        }
+        label="Usage"
+        sx={{
+          color: selectedTab === 0 ? "#193929" : "gray",
+          "&.Mui-selected": {
+            fontWeight: "bold",
+            color: "#193929",
+          },
+        }}
+      />
+      <Tab
+        icon={
+          <BluetoothConnectedIcon
+            sx={{ color: selectedTab === 5 ? "#193929" : "gray" }}
+          />
+        }
+        label="Bluetooth"
+        sx={{
+          color: selectedTab === 0 ? "#193929" : "gray",
+          "&.Mui-selected": {
+            fontWeight: "bold",
+            color: "#193929",
+          },
+        }}
+      />
     </Tabs>
   );
 };

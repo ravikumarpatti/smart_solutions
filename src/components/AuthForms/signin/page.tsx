@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import HomeIcon from "@mui/icons-material/Home";
 
 function Copyright(props: any) {
   return (
@@ -78,16 +79,35 @@ export default function SignIn({ title }: SignInProps) {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h4">
-          {title} {/* Dynamically set the title */}
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            alignContent: "center",
+            gap: "8px",
+          }}
+        >
+          <Link href="/">
+            <HomeIcon
+              sx={{
+                color: "#193929",
+                border: "1px solid green",
+                borderRadius: "25%",
+              }}
+            />
+          </Link>
+          <Typography component="h1" variant="h5">
+            {title} {/* Dynamically set the title */}
+          </Typography>
+        </Box>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Email Address / User Name"
             name="email"
             autoComplete="email"
             autoFocus
@@ -111,9 +131,10 @@ export default function SignIn({ title }: SignInProps) {
             fullWidth
             variant="contained"
             sx={{
-              mt: 3,
+              mt: 1,
               mb: 2,
               backgroundColor: "#193929",
+              border: "1px solid transparent",
               ":hover": {
                 backgroundColor: "transparent",
                 color: "black",

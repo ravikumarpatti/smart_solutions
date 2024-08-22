@@ -49,7 +49,14 @@ const HomePage: React.FC = () => {
   ];
 
   return (
-    <Container sx={{ height: "100vh", overflowY: "auto" }}>
+    <Container
+      sx={{
+        height: "100vh",
+        overflowY: "auto",
+        scrollbarWidth: "none",
+        marginBottom: "2rem",
+      }}
+    >
       <Typography variant="h3" sx={{ margin: "15px 0px" }}>
         Smart Building Solutions
       </Typography>

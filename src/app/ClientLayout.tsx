@@ -13,10 +13,6 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (prevPathname.current !== pathname) {
-      // Set loader initially
-      // setComponent(<Loader />);
-
-      // Simulate loading delay and then display children
       const handleRouteChangeComplete = () => {
         setTimeout(() => setComponent(children), 1000);
       };

@@ -13,6 +13,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useEffect, useState } from "react";
+import HomeIcon from "@mui/icons-material/Home";
 
 function Copyright(props: any) {
   return (
@@ -69,9 +70,28 @@ export default function SignUp({ title }: SignUpProps) {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5">
-          {title} {/* Dynamically set the title */}
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            alignContent: "center",
+            gap: "8px",
+          }}
+        >
+          <Link href="/">
+            <HomeIcon
+              sx={{
+                color: "#193929",
+                border: "1px solid green",
+                borderRadius: "25%",
+              }}
+            />
+          </Link>
+          <Typography component="h1" variant="h5">
+            {title} {/* Dynamically set the title */}
+          </Typography>
+        </Box>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -127,7 +147,17 @@ export default function SignUp({ title }: SignUpProps) {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{
+              mt: 1,
+              mb: 2,
+              backgroundColor: "#193929",
+              border: "1px solid transparent",
+              ":hover": {
+                backgroundColor: "transparent",
+                color: "black",
+                border: "1px solid #193929",
+              },
+            }}
           >
             Sign Up
           </Button>

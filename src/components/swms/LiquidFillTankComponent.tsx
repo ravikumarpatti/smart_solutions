@@ -41,16 +41,33 @@ const LiquidFillTankComponent: React.FC = () => {
               position: "absolute",
               top: `${100 - fillLevel}%`, // Set the wave height based on fill level
               left: "-50%",
-              width: "200%",
-              height: "200%",
+              width: "150%",
+              height: "150%",
               backgroundColor: theme.palette.primary.main,
-              borderRadius: "38%", // Slight rounding on the wave
+              borderRadius: "50%", // Slight rounding on the wave
+              transform: "rotate(360deg)",
+              animation: "wave 30s linear infinite",
+              transition: "top 1s ease",
+            }}
+          />
+          <Box
+            className="wave"
+            sx={{
+              position: "absolute",
+              top: `${100 - fillLevel}%`, // Set the wave height based on fill level
+              // left: "-50%",
+              right: "-50%",
+              width: "150%",
+              height: "150%",
+              backgroundColor: theme.palette.primary.main,
+              borderRadius: "50%", // Slight rounding on the wave
               transform: "rotate(360deg)",
               animation: "wave 30s linear infinite",
               transition: "top 1s ease",
             }}
           />
         </Box>
+
         <Typography variant="h6" className="mt-4">
           {fillLevel}%
         </Typography>

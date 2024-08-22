@@ -1,11 +1,8 @@
-// /app/swms/dashboard/layout.tsx
-
 "use client";
 
 import * as React from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -29,6 +26,18 @@ import {
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
 import { useRouter, usePathname } from "next/navigation";
+import Drawer from "@mui/material/Drawer";
+
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
 
 const drawerWidth: number = 240;
 
@@ -36,10 +45,36 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
+  open?: boolean;
+}>(({ theme, open }) => ({
+  flexGrow: 1,
+  padding: theme.spacing(3),
+  transition: theme.transitions.create("margin", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  marginRight: -drawerWidth,
+  ...(open && {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: 0,
+  }),
+  /**
+   * This is necessary to enable the selection of content. In the DOM, the stacking order is determined
+   * by the order of appearance. Following this rule, elements appearing later in the markup will overlay
+   * those that appear earlier. Since the Drawer comes after the Main content, this adjustment ensures
+   * proper interaction with the underlying content.
+   */
+  position: "relative",
+}));
+
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
+  zIndex: theme.zIndex.drawer - 1,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -54,43 +89,14 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  "& .MuiDrawer-paper": {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: open ? drawerWidth : theme.spacing(7),
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: "border-box",
-    overflowX: "hidden",
-    backgroundColor: "#193929",
-    [theme.breakpoints.up("sm")]: {
-      width: open ? drawerWidth : theme.spacing(9),
-    },
-  },
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-start",
 }));
-
-// const Copyright = (props: any) => {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://mui.com/">
-//         ACS Technologies
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// };
 
 export default function DashboardLayout({
   children,
@@ -139,7 +145,7 @@ export default function DashboardLayout({
             >
               Smart Water Management System
             </Typography>
-            <BottomNavigation
+            {/* <BottomNavigation
               showLabels
               value={value}
               onChange={(event, newValue) => {
@@ -189,49 +195,66 @@ export default function DashboardLayout({
             </BottomNavigation>
             <Button onClick={toggleDarkMode} sx={{ color: "wheat" }}>
               {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
-            </Button>
+            </Button> */}
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="end"
+              onClick={handleDrawerOpen}
+              sx={{ ...(open && { display: "none" }) }}
+            >
+              <MenuIcon />
+            </IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer
-          variant="permanent"
-          open={open}
-          onMouseEnter={handleDrawerOpen}
-          onMouseLeave={handleDrawerClose}
-        >
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-            }}
-          />
-          <List
-            component="nav"
-            sx={{ backgroundColor: "#193929", color: "wheat" }}
-          >
-            {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
-          </List>
-        </Drawer>
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? "tranparent"
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: "100vh",
-            overflow: "auto",
-          }}
-        >
-          <Toolbar />
+
+        <Main open={open}>
+          <DrawerHeader />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             {children}{" "}
           </Container>
-        </Box>
+        </Main>
+        <Drawer
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              border: "none",
+              width: drawerWidth,
+            },
+          }}
+          variant="persistent"
+          anchor="right"
+          open={open}
+        >
+          <DrawerHeader
+            sx={{ backgroundColor: "#193929", borderColor: "#193929" }}
+          >
+            <IconButton onClick={handleDrawerClose} sx={{ color: "wheat" }}>
+              {theme.direction === "rtl" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            {["Contact Us", "Learn More", "Settings", "Logout"].map(
+              (text, index) => (
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              )
+            )}
+          </List>
+          <Divider />
+        </Drawer>
       </Box>
     </ThemeProvider>
   );

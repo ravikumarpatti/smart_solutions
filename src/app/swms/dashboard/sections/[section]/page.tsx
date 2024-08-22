@@ -2,10 +2,10 @@
 
 import { useParams } from "next/navigation";
 import NavigationMenu from "../../../../../components/swms/NavigationMenu";
-import TankComponent from "../../../../../components/swms/TankComponent";
-import BorewellsComponent from "../../../../../components/swms/BorewellsComponent";
-import MotorsComponent from "../../../../../components/swms/MotorsComponent";
-import ValvesComponent from "../../../../../components/swms/ValvesComponent";
+import TankComponent from "../../../../../components/swms/Tanks/TankComponent";
+import BorewellsComponent from "../../../../../components/swms/Borewells/BorewellsComponent";
+import MotorsComponent from "../../../../../components/swms/MotorsComponent/MotorsComponent";
+import ValvesComponent from "../../../../../components/swms/Valves/ValvesComponent";
 import UsageComponent from "../../../../../components/swms/usage/UsageComponent";
 import BluetoothComponent from "../../../../../components/swms/Bluetooth";
 import LiquidFillTankComponent from "../../../../../components/swms/LiquidFillTankComponent";
@@ -27,7 +27,7 @@ const SectionPage = () => {
       ComponentToRender = MotorsComponent;
       break;
     case "valves":
-      ComponentToRender = LiquidFillTankComponent;
+      ComponentToRender = ValvesComponent;
       break;
     case "usage":
       ComponentToRender = UsageComponent;
