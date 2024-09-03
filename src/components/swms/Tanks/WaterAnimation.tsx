@@ -23,7 +23,7 @@ const WaterContainer: React.FC<WaterContainerProps> = ({ level }) => {
     backgroundColor: "#ececec",
     top: "-150%",
     left: "-50%",
-    borderRadius: "41%",
+    borderRadius: "45%",
     animation: "wave 12s infinite linear",
   };
 

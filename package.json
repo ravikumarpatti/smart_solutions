@@ -9,11 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.0",
+    "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.4",
-    "@mui/material": "^5.16.4",
+    "@mui/material": "^5.16.7",
     "@mui/x-charts": "^7.11.0",
+    "@mui/x-data-grid": "^7.14.0",
     "aws-iot-device-sdk-v2": "^1.20.0",
     "aws-sdk": "^2.1666.0",
     "chart.js": "^4.4.3",
